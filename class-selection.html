@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klassenauswahl</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Füge hier deinen CSS-Link hinzu -->
+</head>
+<body>
+
+    <h1>Wähle deine Klasse, Abenteurer!</h1>
+    <p id="playerName"></p> <!-- Hier wird der Spielername angezeigt -->
+    
+    <!-- Hier können Sie eine Dropdown-Liste oder eine andere Art von Element zur Klassenauswahl verwenden -->
+    <select id="classSelector">
+        <option value="">--Bitte wähle eine Klasse--</option>
+        <option value="Barbar">Barbar</option>
+        <option value="Bard">Bard</option>
+        <option value="Cleric">Cleric</option>
+        <option value="Druid">Druid</option>
+        <option value="Fighter">Fighter</option>
+        <option value="Monk">Monk</option>
+        <option value="Paladin">Paladin</option>
+        <option value="Ranger">Ranger</option>
+        <option value="Rogue">Rogue</option>
+        <option value="Sorcerer">Sorcerer</option>
+        <option value="Warlock">Warlock</option>
+        <option value="Wizard">Wizard</option>
+    </select>
+
+    <button id="selectClassBtn">Klasse auswählen</button>
+
+    <select id="raceSelector" style="display: none;">
+        <option value="">--Bitte wähle ein Volk--</option>
+        <option value="Dwarf">Dwarf</option>
+        <option value="Elf">Elf</option>
+        <option value="Halfling">Halfling</option>
+        <option value="Human">Human</option>
+        <option value="Dragonborn">Dragonborn</option>
+        <option value="Gnome">Gnome</option>
+        <option value="Half-Elf">Half-Elf</option>
+        <option value="Half-Orc">Half-Orc</option>
+        <option value="Tiefling">Tiefling</option>
+        <!-- Fügen Sie hier weitere Völker hinzu -->
+    </select>
+    
+    <!-- Neuer Button für die Auswahl des Volkes, zunächst versteckt -->
+    <button id="selectRaceBtn" style="display: none;">Volk auswählen</button>
+
+    
+    <script src="class-selection.js"></script> <!-- Füge hier deinen JavaScript-Link hinzu -->
+</body>
+</html>
