@@ -33,8 +33,10 @@ function checkInput() {
     } else if(stage === 1) {
         playerName = userInput; // Speichert den Namen des Benutzers
         addMessageToHistory("Hallo " + playerName + "! Bist du bereit, dein Abenteuer zu beginnen?", "system");
-        // Öffnet die neue Seite und sendet den Namen des Spielers
-        window.location.href = 'class-selection.html?name=' + encodeURIComponent(playerName);
+        // Verzögert die Weiterleitung um 3 Sekunden (3000 Millisekunden)
+        setTimeout(function() {
+            window.location.href = 'class-selection.html?name=' + encodeURIComponent(playerName);
+        }, 3000);
     }
 
     document.getElementById('userInput').value = ''; // Leert das Eingabefeld nach dem Absenden
