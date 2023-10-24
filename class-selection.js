@@ -30,4 +30,24 @@ document.addEventListener("DOMContentLoaded", function() {
             alert("Bitte wähle ein Volk aus der Liste.");
         }
     });
+
+    // Beispiel: Nachdem der Spieler seine Klasse und Rasse ausgewählt hat
+function savePlayerInfoAndRedirect() {
+    var selectedClass = document.getElementById('classSelector').value;
+    var selectedRace = document.getElementById('raceSelector').value;
+    
+    // Spielerinformationen in einem Objekt speichern
+    var playerInfo = {
+        name: playerName, // Dies ist der zuvor gespeicherte Spielername
+        class: selectedClass,
+        race: selectedRace
+    };
+
+    // Speichern im localStorage
+    localStorage.setItem('playerInfo', JSON.stringify(playerInfo));
+
+    // Weiterleitung zur Charakterbogen-Seite
+    window.location.href = 'character-sheet.html';
+}
+
 });

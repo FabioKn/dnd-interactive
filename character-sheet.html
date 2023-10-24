@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charakterbogen</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="character-sheet">
+        <h2>Dein Charakterbogen</h2>
+        <!-- Attribute inputs -->
+        <label>Stärke: 
+            <input type="number" id="strength" value="10" min="1">
+        </label>
+        <!-- Weitere Attribute inputs... -->
+        <label>Verfügbare Punkte: 
+            <span id="available-points">27</span>
+        </label>
+        <button id="save-button">Speichern</button>
+    </div>
+    <script src="character-sheet.js"></script>
+</body>
+</html>
