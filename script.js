@@ -32,7 +32,7 @@ function checkInput() {
         }
     } else if(stage === 1) {
         playerName = userInput; // Speichert den Namen des Benutzers
-        addMessageToHistory("Hallo " + playerName + "! Bist du bereit, dein Abenteuer zu beginnen?", "system");
+        addMessageToHistory("Hallo " + playerName + "! Dein Abenteuer beginnt in Kürze", "system");
         // Verzögert die Weiterleitung um 3 Sekunden (3000 Millisekunden)
         setTimeout(function() {
             window.location.href = 'class-selection.html?name=' + encodeURIComponent(playerName);

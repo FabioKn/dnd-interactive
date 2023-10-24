@@ -5,8 +5,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Initialwerte für Attribute, könnten basierend auf Klasse/Rasse variieren
     var initialAttributes = {
-        strength: 10, // Beispielwerte, sollten basierend auf Klasse/Rasse angepasst werden
-        // ... andere Attribute
+        stärke: 10, 
+        weisheit: 10,
+        charisma: 10,
+        intelligenz: 10,
+        geschicklichkeit: 10,
     };
 
     var availablePoints = 27; // Beispiel für verfügbare Punkte
@@ -25,14 +28,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Event-Listener für Attributänderungen
-    document.getElementById('strength').addEventListener('change', handleAttributeChange);
+    document.getElementById('stärke').addEventListener('change', handleAttributeChange);
+    document.getElementById('weisheit').addEventListener('change', handleAttributeChange);
+    document.getElementById('charisma').addEventListener('change', handleAttributeChange);
+    document.getElementById('geschicklichkeit').addEventListener('change', handleAttributeChange);
+    document.getElementById('intelligenz').addEventListener('change', handleAttributeChange);
     // Weitere Listener für andere Attribute...
 
     // Logik für den Speichern-Button
     document.getElementById('save-button').addEventListener('click', function() {
         // Validierung und Speichern der endgültigen Spielerdaten
         playerInfo.attributes = {
-            strength: document.getElementById('strength').value,
+            stärke: document.getElementById('stärke').value,
+            weisheit: document.getElementById('weisheit').value,
+            charisma: document.getElementById('charisma').value,
+            geschicklichkeit: document.getElementById('geschicklichkeit').value,
+            intelligenz: document.getElementById('intelligenz').value,
             // ... andere Attribute
         };
 
