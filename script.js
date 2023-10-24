@@ -36,7 +36,7 @@ function checkInput() {
         // Verzögert die Weiterleitung um 3 Sekunden (3000 Millisekunden)
         setTimeout(function() {
             window.location.href = 'class-selection.html?name=' + encodeURIComponent(playerName);
-        }, 3000);
+        }, 5000);
     }
 
     document.getElementById('userInput').value = ''; // Leert das Eingabefeld nach dem Absenden
