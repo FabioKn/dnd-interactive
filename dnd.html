@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DND Spiel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="dialog-container">
+        <div id="story-output">Hier beginnt dein Abenteuer...</div>
+        <input type="text" id="player-input" placeholder="Was wirst du tun?">
+        <button id="submit-action">Aktion</button>
+    </div>
+
+    <div id="dice-container">
+        <button class="dice-btn" data-dice="4">Würfel D4</button>
+        <button class="dice-btn" data-dice="6">Würfel D6</button>
+        <button class="dice-btn" data-dice="8">Würfel D8</button>
+        <button class="dice-btn" data-dice="20">Würfel D20</button>
+    </div>
+
+    <div id="dice-result"></div>
+
+    <script src="dnd.js"></script>
+</body>
+</html>
