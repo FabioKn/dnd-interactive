@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
         playerInfo.attributes = attributes;
         localStorage.setItem('playerInfo', JSON.stringify(playerInfo));
         // Optional: Weiterleitung oder Bestätigung
+        window.location.href = 'weapon-armory.html'; // Ändere 'waffenkammer.html' zu deinem Dateinamen der Waffenkammer-Seite
     });
 
     updateAttributeDisplay();
