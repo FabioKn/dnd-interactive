@@ -32,17 +32,27 @@ button {
     overflow-y: scroll; /* Ermöglicht das Scrollen innerhalb des Containers */
 }
 
-.chat-history .system-message,
+.chat-history .dm-message,
 .chat-history .user-message {
     margin-bottom: 10px;
 }
 
-.chat-history .system-message::before {
-    content: 'System: ';
+.chat-history .dm-message::before {
+    content: 'DM: ';
     font-weight: bold;
 }
 
 .chat-history .user-message::before {
     content: 'Spieler: ';
     font-weight: bold;
+}
+
+.weapon {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.weapon:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
 }

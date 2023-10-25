@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Diese Funktion wird ausgeführt, wenn das Dokument geladen ist
-    addMessageToHistory("Hello new player!", "system");
+    addMessageToHistory("Hello new player!", "dm");
 
     document.getElementById('userInput').addEventListener("keyup", function(event) {
         if (event.key === "Enter") {
@@ -25,18 +25,18 @@ function checkInput() {
     if(stage === 0) {
         var greetings = ['hallo', 'hey', 'hello', 'hi'];
         if (greetings.includes(userInput.toLowerCase())) {
-            addMessageToHistory("Schön dich kennenzulernen! Wie heißt du?", "system");
+            addMessageToHistory("Schön dich kennenzulernen! Wie heißt du?", "dm");
             stage = 1; // Gehe zum nächsten Schritt
         } else {
-            addMessageToHistory("Bitte sag Hallo, um fortzufahren.", "system");
+            addMessageToHistory("Bitte sag Hallo, um fortzufahren.", "dm");
         }
     } else if(stage === 1) {
         playerName = userInput; // Speichert den Namen des Benutzers
-        addMessageToHistory("Hallo " + playerName + "! Dein Abenteuer beginnt in Kürze", "system");
+        addMessageToHistory("Hallo " + playerName + "! Dein Abenteuer beginnt in Kürze", "dm");
         // Verzögert die Weiterleitung um 3 Sekunden (3000 Millisekunden)
         setTimeout(function() {
             window.location.href = 'class-selection.html?name=' + encodeURIComponent(playerName);
-        }, 5000);
+        }, 2000);
     }
 
     document.getElementById('userInput').value = ''; // Leert das Eingabefeld nach dem Absenden
