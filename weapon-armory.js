@@ -6,8 +6,10 @@ document.addEventListener("DOMContentLoaded", function() {
             if (confirmChoice) {
                 // Logik, um die gewählte Waffe zu speichern
                 localStorage.setItem('selectedWeapon', weaponChoice);
-                // Optional: Weiterleitung oder Bestätigung
+                
+                // Benachrichtigung und Weiterleitung
                 alert("Du hast das " + weaponChoice + " gewählt!");
+                window.location.href = 'choose-location.html'; // Weiterleitung zur Ortswahl-Seite
             }
         });
     });
