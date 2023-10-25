@@ -13,10 +13,24 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll(".dice-btn").forEach(function(btn) {
         btn.addEventListener("click", function() {
             var diceType = parseInt(btn.getAttribute("data-dice"));
-            var result = Math.ceil(Math.random() * diceType);
-            document.getElementById("dice-result").innerText = "Du hast eine " + result + " gewürfelt!";
+            var resultContainer = document.getElementById("dice-result");
+    
+            // Animierter Würfelwurf
+            let times = 10; // Anzahl der Änderungen vor dem Endresultat
+            let interval = setInterval(function() {
+                let randomNum = Math.ceil(Math.random() * diceType);
+                resultContainer.innerText = randomNum;
+                times--;
+                if (times <= 0) {
+                    clearInterval(interval);
+                    // Zeigt das endgültige Ergebnis an
+                    let finalResult = Math.ceil(Math.random() * diceType);
+                    resultContainer.innerText = "Du hast eine " + finalResult + " gewürfelt!";
+                }
+            }, 100); // Geschwindigkeit der Zahlwechsel
         });
     });
+    
 });
 
 function generateGreeting() {
