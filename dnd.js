@@ -171,43 +171,31 @@ function handleHighRollOutcome(location) {
     return outcome;
 }
 
-function initiateNpcDialog() {
-    let npcSpeech = document.getElementById("npc-speech");
-
-    switch(currentDiscovery) {
-        case "betrunkenen":
-            npcSpeech.innerHTML = "Betrunkenen: *hicks* Der Schatz, ich schwör's, liegt versteckt unter der alten Eiche im Norden!";
-            break;
-        case "magischer Händler":
-            npcSpeech.innerHTML = "Händler: Diese Artefakte sind mächtig... aber für den richtigen Preis gehören sie dir.";
-            break;
-        case "verborgene Unterwelt":
-            npcSpeech.innerHTML = "Dieb: Suchst du Informationen? Jedes Geheimnis hat seinen Preis.";
-            break;
-        // ...weitere Fälle...
-        default:
-            npcSpeech.innerHTML = "NPC: Hallo Abenteurer! Wie kann ich dir helfen?";
-            break;
+async function fetchOpenAIResponse(prompt) {
+    try {
+        let response = await fetch('/api/chatGPT', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt })
+        });
+        if (!response.ok) throw new Error('Netzwerkantwort war nicht ok.');
+        let data = await response.json();
+        return data.reply;
+    } catch (error) {
+        console.error('Fehler beim Abrufen der Daten:', error);
     }
-    // Erweiterungen für spezifische NPC-Dialoge und Aktionen
+}
+
+async function initiateNpcDialog() {
+    let npcSpeech = document.getElementById("npc-speech");
+    let npcResponse = await fetchOpenAIResponse("NPC Dialog für die Situation: " + currentDiscovery);
+    npcSpeech.innerHTML = npcResponse || "NPC: Hallo Abenteurer! Wie kann ich dir helfen?";
 }
 
 
-// Funktion zum Untersuchen der aktuellen Entdeckung
-function investigateDiscovery() {
-    let investigationOutcome = "";
-    let storyOutput = document.getElementById("story-output");
-    switch(currentDiscovery) {
-        case "betrunkenen":
-            investigationOutcome = "Du folgst den Hinweisen des Betrunkenen und entdeckst wirklich einen kleinen Schatz unter der Eiche.";
-            break;
-        case "magischer Händler":
-            investigationOutcome = "Der Händler warnt dich, dass das Artefakt von einem Fluch belegt sein könnte.";
-            break;
-        // ...weitere Fälle...
-        default:
-            investigationOutcome = "Es gibt nichts Besonderes zu entdecken.";
-            break;
-    }
-    storyOutput.innerHTML += `<p>${investigationOutcome}</p>`;
+async function investigateDiscovery() {
+    let investigationOutcome = await fetchOpenAIResponse("Untersuche die Entdeckung: " + currentDiscovery);
+    document.getElementById("story-output").innerHTML += `<p>${investigationOutcome || "Es gibt nichts Besonderes zu entdecken."}</p>`;
 }
