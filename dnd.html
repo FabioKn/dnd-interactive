@@ -8,10 +8,20 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="quest-container">
+        <h2>Aktuelle Quest</h2>
+        <p id="quest-description">Finde die geheime Kammer in der alten Bibliothek.</p>
+    </div>
+
     <div id="dialog-container">
         <div id="story-output">Hier beginnt dein Abenteuer...</div>
         <input type="text" id="player-input" placeholder="Was wirst du tun?">
         <button id="submit-action">Aktion</button>
+    </div>
+
+    <div id="npc-dialog">
+        <p id="npc-speech">"Hast du Neuigkeiten für mich?"</p>
+        <button id="talk-npc">Mit NPC sprechen</button>
     </div>
 
     <div id="dice-container">
