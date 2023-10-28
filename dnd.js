@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         // Weitere Aktionen können hier ergänzt werden
     }
+
     function exploreCity() {
         let places = ["Marktplatz", "Dunkle Gasse", "Königspalast"]; // Beispielliste von Orten
         let storyOutput = document.getElementById("story-output");
@@ -68,8 +69,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Würfelfunktion
-    document.querySelectorAll(".dice-btn").forEach(function(btn) {
-        btn.addEventListener("click", function() {
+    document.querySelectorAll(".dice-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
             if (!awaitingRoll) return; // Reagiere nur, wenn ein Wurf erforderlich ist
 
             var diceType = parseInt(btn.getAttribute("data-dice"));
@@ -82,6 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById("story-output").innerHTML += "<p>Bitte würfle den richtigen Würfel!</p>";
             }
         });
+    });
     
 
         function initiateNpcDialog() {
@@ -262,10 +264,5 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("npc-speech").innerHTML = "<p>Das Gespräch ist beendet.</p>";
             document.getElementById("dialog-options").innerHTML = "";
         }
-
-
-
-
-});
 
 });
