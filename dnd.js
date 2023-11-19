@@ -20,14 +20,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function submitPlayerAction() {
         playerAction();
-        // Möglichkeit für zusätzliche Aktionen nach der Spieleraktion
-        checkGameStatus(); // Überprüft den Spielstatus nach jeder Aktion
+        checkGameStatus(); // Diese Funktion muss definiert werden
     }
+
+     // Diese Funktion muss definiert sein oder entfernt werden, wenn sie nicht verwendet wird.
+     function checkGameStatus() {
+        // Platzhalter für die Spielstatusüberprüfung
+    }
+});
 
     function playerAction() {
         var playerInput = document.getElementById("player-input").value.toLowerCase();
         document.getElementById("story-output").innerHTML += "<p>" + playerInput + "</p>";
         document.getElementById("player-input").value = ""; // Eingabefeld leeren
+
 
          // Zuordnung der Eingabe zu Funktionen
          switch (true) {
@@ -87,7 +93,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         return [marktplatz, dunkleGasse, königspalast];
     }
-});
 
     function exploreCity() {
         let places = ["Marktplatz", "Dunkle Gasse", "Königspalast"];
