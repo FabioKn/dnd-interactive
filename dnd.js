@@ -1,3 +1,50 @@
+// Klassendefinitionen und Hilfsfunktionen, die nicht vom DOM abhängig sind
+class Ort {
+    constructor(name, beschreibung) {
+        this.name = name;
+        this.beschreibung = beschreibung;
+        this.npcs = [];
+    }
+
+    addNPC(npc) {
+        this.npcs.push(npc);
+    }
+
+    besucheOrt() {
+        // Ort besuchen Logik
+    }
+}
+
+    class NPC {
+        constructor(name, dialogOptionen) {
+            this.name = name;
+            this.dialogOptionen = dialogOptionen;
+        }
+    
+        sprechen() {
+            // NPC sprechen Logik
+        }
+        // Weitere Methoden...
+    }
+
+
+             // Initialisiere die Orte mit ihren Beschreibungen und NPCs
+             function initOrte() {
+                let marktplatz = new Ort("Marktplatz", "Ein lebendiger Ort voller Händler und Abenteurer.");
+                let dunkleGasse = new Ort("Dunkle Gasse", "Eine düstere Gasse, die von zwielichtigen Gestalten frequentiert wird.");
+                let königspalast = new Ort("Königspalast", "Der prächtige Wohnsitz des Königs und seiner Familie.");
+        
+                // Initialisiere die NPCs und füge sie den Orten hinzu
+                let händler = new NPC("Händler", [
+                    { text: "Handeln", action: initiateTrade },
+                    { text: "Nach Gerüchten fragen", action: revealSecret }
+                ]);
+                marktplatz.addNPC(händler);
+        
+                return [marktplatz, dunkleGasse, königspalast];
+            }
+
+
 document.addEventListener("DOMContentLoaded", function() {
     let awaitingRoll = false;
     let rollType = null;
@@ -27,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
      function checkGameStatus() {
         // Platzhalter für die Spielstatusüberprüfung
     }
-});
+
 
     function playerAction() {
         var playerInput = document.getElementById("player-input").value.toLowerCase();
@@ -67,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
         // Weitere Aktionen können hier ergänzt werden
-    
+
 
         function generateGreeting() {
             let playerInfo = JSON.parse(localStorage.getItem('playerInfo')) || {}; // Fallback für playerInfo
@@ -77,22 +124,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let storyText = `Hallo, ${playerInfo.name || 'Reisender'}. Sei gegrüßt ${playerInfo.class || 'Abenteurer'} aus dem Volk der ${playerInfo.race || 'Unbekannten'} ausgerüstet mit ${selectedWeapon}. Du befindest dich nun in ${selectedLocation}...`;
             document.getElementById('story-output').innerHTML = storyText;
         }
-
-         // Initialisiere die Orte mit ihren Beschreibungen und NPCs
-    function initOrte() {
-        let marktplatz = new Ort("Marktplatz", "Ein lebendiger Ort voller Händler und Abenteurer.");
-        let dunkleGasse = new Ort("Dunkle Gasse", "Eine düstere Gasse, die von zwielichtigen Gestalten frequentiert wird.");
-        let königspalast = new Ort("Königspalast", "Der prächtige Wohnsitz des Königs und seiner Familie.");
-
-        // Initialisiere die NPCs und füge sie den Orten hinzu
-        let händler = new NPC("Händler", [
-            { text: "Handeln", action: initiateTrade },
-            { text: "Nach Gerüchten fragen", action: revealSecret }
-        ]);
-        marktplatz.addNPC(händler);
-
-        return [marktplatz, dunkleGasse, königspalast];
-    }
+    });
 
     function exploreCity() {
         let places = ["Marktplatz", "Dunkle Gasse", "Königspalast"];
