@@ -1,7 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
-    generateGreeting();
     let awaitingRoll = false;
     let rollType = null;
+    let currentDiscovery = ""; // Aktueller Entdeckungszustand
+    let alleOrte = initOrte(); // Initialisiere die Orte
+    let aktuellerOrt = alleOrte[0]; // Starte am ersten Ort der Liste
+
+    generateGreeting();
 
     // Aktiviere Spieleraktionen mit der Enter-Taste
     document.getElementById("player-input").addEventListener("keypress", function(event) {
@@ -24,31 +28,74 @@ document.addEventListener("DOMContentLoaded", function() {
         var playerInput = document.getElementById("player-input").value.toLowerCase();
         document.getElementById("story-output").innerHTML += "<p>" + playerInput + "</p>";
         document.getElementById("player-input").value = ""; // Eingabefeld leeren
-    
-        if (playerInput.includes("erkunden")) {
-            document.getElementById("story-output").innerHTML += "<p>Würfle einen D20, um deine Umgebung zu erkunden.</p>";
-            awaitingRoll = true;
-            rollType = 20;
-            exploreCity();
-        } else if (playerInput.includes("sprechen")) {
-            initiateNpcDialog();
-        } else if (playerInput.includes("untersuchen")) {
-            investigateDiscovery();
-        } else if (playerInput.includes("rasten")) {
-            takeRest();
-        } else if (playerInput.includes("handeln")) {
-            initiateTrade();
+
+         // Zuordnung der Eingabe zu Funktionen
+         switch (true) {
+            case playerInput.includes("erkunden"):
+                exploreCity();
+                break;
+            case playerInput.includes("sprechen"):
+                initiateNpcDialog();
+                break;
+            case playerInput.includes("untersuchen"):
+                investigateDiscovery();
+                break;
+            case playerInput.includes("rasten"):
+                takeRest();
+                break;
+            case playerInput.includes("handeln"):
+                initiateTrade();
+                break;
+            case playerInput.includes("eiche"):
+                goToOldOak();
+                break;
+            case playerInput.includes("würfeln"):
+                fightGuards();
+                break;
+            case playerInput.includes("umschauen"):
+                lookAround();
+                break;
+            default:
+                document.getElementById("story-output").innerHTML += "<p>Ich verstehe nicht, was du meinst...</p>";
+                break;
         }
-        // Weitere Aktionen können hier ergänzt werden
     }
+        // Weitere Aktionen können hier ergänzt werden
+    
+
+        function generateGreeting() {
+            let playerInfo = JSON.parse(localStorage.getItem('playerInfo')) || {}; // Fallback für playerInfo
+            let selectedWeapon = localStorage.getItem('selectedWeapon') || 'unbewaffnet';
+            let selectedLocation = localStorage.getItem('selectedLocation') || 'am Anfang';
+    
+            let storyText = `Hallo, ${playerInfo.name || 'Reisender'}. Sei gegrüßt ${playerInfo.class || 'Abenteurer'} aus dem Volk der ${playerInfo.race || 'Unbekannten'} ausgerüstet mit ${selectedWeapon}. Du befindest dich nun in ${selectedLocation}...`;
+            document.getElementById('story-output').innerHTML = storyText;
+        }
+
+         // Initialisiere die Orte mit ihren Beschreibungen und NPCs
+    function initOrte() {
+        let marktplatz = new Ort("Marktplatz", "Ein lebendiger Ort voller Händler und Abenteurer.");
+        let dunkleGasse = new Ort("Dunkle Gasse", "Eine düstere Gasse, die von zwielichtigen Gestalten frequentiert wird.");
+        let königspalast = new Ort("Königspalast", "Der prächtige Wohnsitz des Königs und seiner Familie.");
+
+        // Initialisiere die NPCs und füge sie den Orten hinzu
+        let händler = new NPC("Händler", [
+            { text: "Handeln", action: initiateTrade },
+            { text: "Nach Gerüchten fragen", action: revealSecret }
+        ]);
+        marktplatz.addNPC(händler);
+
+        return [marktplatz, dunkleGasse, königspalast];
+    }
+});
 
     function exploreCity() {
-        let places = ["Marktplatz", "Dunkle Gasse", "Königspalast"]; // Beispielliste von Orten
+        let places = ["Marktplatz", "Dunkle Gasse", "Königspalast"];
         let storyOutput = document.getElementById("story-output");
         let placesHTML = places.map(place => 
             `<button class="explore-place" data-place="${place}">${place}</button>`
         ).join("");
-    
+
         storyOutput.innerHTML += "<p>Wähle einen Ort aus, den du erkunden möchtest:</p>" + placesHTML;
         addExplorePlaceListeners();
     }
@@ -61,11 +108,49 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     }
-    
+
     function explorePlace(place) {
-        // Logik zur Erkundung des ausgewählten Ortes
         document.getElementById("story-output").innerHTML += `<p>Du erkundest den Ort: ${place}</p>`;
         // Weitere spezifische Interaktionen und Entdeckungen basierend auf dem gewählten Ort
+    }
+
+    function initiateNpcDialog() {
+        let npc = getCurrentNpc();
+        displayDialogOptions(npc);
+        if(npc.name === "Betrunkenen") {
+            document.getElementById("story-output").innerHTML += "<p>Möchtest du zur alten Eiche im Norden gehen? Schreibe 'Zur Eiche gehen'.</p>";
+        }
+    }
+
+    function goToOldOak() {
+        document.getElementById("story-output").innerHTML += "<p>Du gehst zur alten Eiche im Norden. Während du die Gegend erkundest, wirst du plötzlich von Wachen überrascht und musst kämpfen! Würfle einen D20, um den Ausgang des Kampfes zu bestimmen.</p>";
+        document.getElementById("story-output").innerHTML += '<p>Schreibe "Würfeln", um zu kämpfen.</p>';
+    }
+    
+    function fightGuards() {
+        let roll = Math.floor(Math.random() * 20) + 1;
+        if (roll >= 11) {
+            // Gewonnen
+            document.getElementById("story-output").innerHTML += "<p>Du hast gewonnen! Die Wachen ziehen sich zurück.</p>";
+            document.getElementById("story-output").innerHTML += "<p>Schreibe 'Umschauen', um die Gegend zu erkunden.</p>";
+        } else {
+            // Verloren
+            document.getElementById("story-output").innerHTML += "<p>Du hast verloren und wirst ohnmächtig. Nach einer Minute kommst du wieder zu dir.</p>";
+            setTimeout(() => {
+                document.getElementById("story-output").innerHTML += "<p>Du bist wieder bei Bewusstsein. Schreibe 'Umschauen', um die Gegend zu erkunden.</p>";
+            }, 60000);  // Wartet 60 Sekunden (60000 Millisekunden)
+        }
+    }
+    
+    function lookAround() {
+        let roll = Math.floor(Math.random() * 20) + 1;
+        if (roll >= 11) {
+            // Geheime Kammer gefunden
+            document.getElementById("story-output").innerHTML += "<p>Du findest einen geheimen Eingang zur alten Bibliothek!</p>";
+        } else {
+            // Keinen Eingang gefunden
+            document.getElementById("story-output").innerHTML += "<p>Du findest nichts Besonderes, aber lernst mehr über die Geschichte der Eiche.</p>";
+        }
     }
 
     // Würfelfunktion
@@ -85,23 +170,17 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
     
-
-        function initiateNpcDialog() {
-            let npcSpeech = document.getElementById("npc-speech");
-            let npc = getCurrentNpc(); // Funktion, um den aktuellen NPC zu bestimmen, basierend auf `currentDiscovery` oder anderen Spiellogiken
         
-            displayDialogOptions(npc);
-        }
-
-        function generateGreeting() {
-            let playerInfo = JSON.parse(localStorage.getItem('playerInfo'));
-            let selectedWeapon = localStorage.getItem('selectedWeapon');
-            let selectedLocation = localStorage.getItem('selectedLocation');
-        
-            let storyText = `Hallo, ${playerInfo.name}. Sei gegrüßt ${playerInfo.class} aus dem Volk der ${playerInfo.race} ausgerüstet mit ${selectedWeapon}. Du befindest dich nun in ${selectedLocation}...`;
-            document.getElementById('story-output').innerHTML = storyText;
+        function showGoods() {
+            document.getElementById("story-output").innerHTML += `<p>Der Händler zeigt eine Auswahl exotischer Gegenstände.</p>`;
+            // Weitere Logik kann hier eingefügt werden, z.B. Gegenstände zum Kauf anzeigen
         }
         
+        function revealSecret() {
+            document.getElementById("story-output").innerHTML += `<p>Der Händler flüstert: "Der Schatz, den du suchst, liegt tief in den verlorenen Höhlen des alten Waldes."</p>`;
+            // Ergänze hier zusätzliche Logik, z.B. eine neue Quest
+        }
+
         function handleExplorationOutcome(rollResult) {
             let description = "";
             let selectedLocation = localStorage.getItem('selectedLocation');
@@ -202,15 +281,15 @@ document.addEventListener("DOMContentLoaded", function() {
         function displayDialogOptions(npc) {
             let npcSpeech = document.getElementById("npc-speech");
             npcSpeech.innerHTML = `<p>${npc.name}: Wähle eine Option.</p>`;
-        
+    
             let dialogHTML = npc.dialogOptions.map((option, index) =>
                 `<button class="dialog-option" data-index="${index}">${option.text}</button>`
             ).join("");
-        
+    
             document.getElementById("dialog-options").innerHTML = dialogHTML;
             addDialogOptionListeners(npc);
         }
-        
+    
         function addDialogOptionListeners(npc) {
             document.querySelectorAll(".dialog-option").forEach(button => {
                 button.addEventListener("click", function() {
@@ -219,6 +298,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             });
         }
+    
         
         // Funktion zum Untersuchen der aktuellen Entdeckung
         function investigateDiscovery() {
@@ -239,30 +319,8 @@ document.addEventListener("DOMContentLoaded", function() {
             storyOutput.innerHTML += `<p>${investigationOutcome}</p>`;
         }
 
-        function getCurrentNpc() {
-            // Beispiellogik, um den NPC basierend auf der aktuellen Entdeckung zu bestimmen
-            switch (currentDiscovery) {
-                case "magischer Händler":
-                    return {
-                        name: "Magischer Händler",
-                        dialogOptions: [
-                            { text: "Zeige mir deine Waren.", action: showGoods },
-                            { text: "Weißt du etwas über den versteckten Schatz?", action: revealSecret },
-                            { text: "Auf Wiedersehen.", action: endConversation }
-                        ]
-                    };
-                // Füge hier weitere NPCs hinzu
-                default:
-                    return { 
-                        name: "Unbekannter NPC",
-                        dialogOptions: [{ text: "Tschüss.", action: endConversation }]
-                    };
-            }
-        }
-
         function endConversation() {
             document.getElementById("npc-speech").innerHTML = "<p>Das Gespräch ist beendet.</p>";
             document.getElementById("dialog-options").innerHTML = "";
         }
 
-});
