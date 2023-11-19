@@ -1,124 +1,62 @@
 body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
+    background-color: #3a3a3c; /* Dunkler Hintergrund für mehr Atmosphäre */
+    color: #f4f4f4; /* Helle Textfarbe für Kontrast */
+    font-family: 'Times New Roman', serif; /* Stilvolle Schriftart für das alte Bibliotheksgefühl */
 }
 
-h1 {
-    margin-bottom: 20px;
-}
-
-input {
-    margin-bottom: 10px;
-    padding: 10px;
-    font-size: 16px;
-}
-
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
+/* Überarbeitung bestehender Styles */
 .chat-history {
-    height: 200px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 20px;
-    overflow-y: scroll; /* Ermöglicht das Scrollen innerhalb des Containers */
+    background: rgba(255, 255, 255, 0.1); /* Leicht transparent für einen schwebenden Effekt */
+    border: none; /* Entferne die Grenze für einen moderneren Look */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Weiche Schatten für Tiefe */
 }
 
+/* Stil der Nachrichten */
 .chat-history .dm-message,
 .chat-history .user-message {
-    margin-bottom: 10px;
+    background: rgba(0, 0, 0, 0.5); /* Halbtransparenter Hintergrund für Nachrichten */
+    color: #fff; /* Weiße Schrift */
+    padding: 10px; /* Polsterung für bessere Lesbarkeit */
+    border-radius: 4px; /* Abgerundete Ecken für Nachrichtenblasen */
+    max-width: 80%; /* Maximale Breite der Nachrichten */
+    margin: 10px auto; /* Zentriert die Nachrichten */
 }
 
-.chat-history .dm-message::before {
-    content: 'DM: ';
-    font-weight: bold;
+/* Hover-Effekt für Nachrichten */
+.chat-history .dm-message:hover,
+.chat-history .user-message:hover {
+    background: rgba(255, 255, 255, 0.2); /* Heller beim Überfahren */
 }
 
-.chat-history .user-message::before {
-    content: 'Spieler: ';
-    font-weight: bold;
+/* Animation für schwebende Partikel */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
 }
 
-.weapon {
-    width: 150px; /* Setzt eine feste Breite für alle Waffen */
-    height: auto; /* Behält das Seitenverhältnis bei */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Anwendung der Animation */
+#chatHistory::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: url('path/to/your/particle.png'); /* Partikelbild */
+    animation: float 6s ease-in-out infinite; /* Langsame schwebende Animation */
 }
 
-.weapon:hover {
-    transform: scale(1.1);
-    opacity: 0.8;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5); /* Fügt einen Schatteneffekt hinzu */
-}
-
-#weapon-armory {
-    display: flex; /* Aktiviert Flexbox */
-    justify-content: center; /* Zentriert die Items horizontal */
-    align-items: center; /* Zentriert die Items vertikal */
-    flex-wrap: wrap; /* Erlaubt Zeilenumbrüche, falls nicht genug Platz vorhanden ist */
-    gap: 20px; /* Fügt einen Abstand zwischen den Items hinzu */
-}
-
-#location-choices {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-}
-
-.location {
+/* Weiterer Stil für die Seite */
+#userInput, #submitBtn {
     border: 1px solid #ccc;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #2a2a2d; /* Dunkler Hintergrund für Input und Button */
+    color: #fff; /* Weiße Schrift für Sichtbarkeit */
 }
 
-.location:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+#submitBtn {
+    background-color: #4a4ae6; /* Lebendige Farbe für den Absende-Button */
+    border-color: #4a4ae6; /* Passende Grenzfarbe */
 }
 
-.description {
-    display: none;
-    font-style: italic;
-    margin-top: 10px;
-}
-
-.location:hover .description {
-    display: block;
-}
-
-#dice-container button {
-    background-color: #4CAF50; /* Grüne Farbe */
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-#dice-container button:hover {
-    background-color: #45a049;
-}
-
-#dice-result {
-    font-size: 24px;
-    margin-top: 20px;
-    color: #333;
+#submitBtn:hover {
+    background-color: #5656e9; /* Helle Farbe für Hover-Effekt */
+    border-color: #5656e9; /* Passende Grenzfarbe für Hover */
 }
