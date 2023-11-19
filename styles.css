@@ -1,14 +1,21 @@
 body {
-    background-color: #3a3a3c; /* Dunkler Hintergrund für mehr Atmosphäre */
+    background-image: url('Bibliothek.png'); /* Pfad zum Hintergrundbild */
+    background-size: cover; /* Skaliert das Bild, um den Container vollständig abzudecken */
+    background-repeat: no-repeat; /* Verhindert das Wiederholen des Bildes */
+    background-attachment: fixed; /* Das Bild bleibt beim Scrollen der Seite an Ort und Stelle */
+    background-position: center center; /* Zentriert das Bild */
+    
     color: #f4f4f4; /* Helle Textfarbe für Kontrast */
     font-family: 'Times New Roman', serif; /* Stilvolle Schriftart für das alte Bibliotheksgefühl */
+    margin: 0; /* Entfernt den Standardrand */
+    height: 100%; /* Sorgt dafür, dass der body die gesamte Fensterhöhe einnimmt */
+    overflow-x: hidden; /* Verhindert horizontales Scrollen, falls das Bild breiter als der Viewport ist */
 }
 
 /* Überarbeitung bestehender Styles */
 .chat-history {
     position: relative;
     background: rgba(255, 255, 255, 0.1); /* Leicht transparent für einen schwebenden Effekt */
-    border: none; /* Entferne die Grenze für einen moderneren Look */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Weiche Schatten für Tiefe */
 }
 
@@ -22,32 +29,6 @@ body {
     max-width: 80%; /* Maximale Breite der Nachrichten */
     margin: 10px auto; /* Zentriert die Nachrichten */
 }
-
-/* Hover-Effekt für Nachrichten */
-.chat-history .dm-message:hover,
-.chat-history .user-message:hover {
-    background: rgba(255, 255, 255, 0.2); /* Heller beim Überfahren */
-}
-
-/* Animation für schwebende Partikel */
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-}
-
-#chatHistory::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; 
-    height: 100%;
-    background-image: url('Bibliothek.png'); /* Pfad zum Bild */
-    background-size: cover; /* Skaliert das Bild, um den Container vollständig abzudecken */
-    background-repeat: no-repeat; /* Verhindert das Wiederholen des Bildes */
-    background-position: center; /* Zentriert das Bild im Container */
-    animation: float 6s ease-in-out infinite; /* Langsame schwebende Animation */
-}
-
 
 /* Weiterer Stil für die Seite */
 #userInput, #submitBtn {
