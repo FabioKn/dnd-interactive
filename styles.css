@@ -6,6 +6,7 @@ body {
 
 /* Überarbeitung bestehender Styles */
 .chat-history {
+    position: relative;
     background: rgba(255, 255, 255, 0.1); /* Leicht transparent für einen schwebenden Effekt */
     border: none; /* Entferne die Grenze für einen moderneren Look */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Weiche Schatten für Tiefe */
@@ -34,15 +35,19 @@ body {
     50% { transform: translateY(-20px); }
 }
 
-/* Anwendung der Animation */
 #chatHistory::before {
     content: '';
     position: absolute;
     top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-image: url('Bibliothek.png'); /* Partikelbild */
+    width: 100%; 
+    height: 100%;
+    background-image: url('Bibliothek.png'); /* Pfad zum Bild */
+    background-size: cover; /* Skaliert das Bild, um den Container vollständig abzudecken */
+    background-repeat: no-repeat; /* Verhindert das Wiederholen des Bildes */
+    background-position: center; /* Zentriert das Bild im Container */
     animation: float 6s ease-in-out infinite; /* Langsame schwebende Animation */
 }
+
 
 /* Weiterer Stil für die Seite */
 #userInput, #submitBtn {
