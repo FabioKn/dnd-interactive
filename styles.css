@@ -1,48 +1,124 @@
 body {
-    background-image: url('Bibliothek.png'); /* Pfad zum Hintergrundbild */
-    background-size: cover; /* Skaliert das Bild, um den Container vollständig abzudecken */
-    background-repeat: no-repeat; /* Verhindert das Wiederholen des Bildes */
-    background-attachment: fixed; /* Das Bild bleibt beim Scrollen der Seite an Ort und Stelle */
-    background-position: center center; /* Zentriert das Bild */
-    
-    color: #f4f4f4; /* Helle Textfarbe für Kontrast */
-    font-family: 'Times New Roman', serif; /* Stilvolle Schriftart für das alte Bibliotheksgefühl */
-    margin: 0; /* Entfernt den Standardrand */
-    height: 100%; /* Sorgt dafür, dass der body die gesamte Fensterhöhe einnimmt */
-    overflow-x: hidden; /* Verhindert horizontales Scrollen, falls das Bild breiter als der Viewport ist */
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
 }
 
-/* Überarbeitung bestehender Styles */
+h1 {
+    margin-bottom: 20px;
+}
+
+input {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 .chat-history {
-    position: relative;
-    background: rgba(255, 255, 255, 0.1); /* Leicht transparent für einen schwebenden Effekt */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Weiche Schatten für Tiefe */
+    height: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    overflow-y: scroll; /* Ermöglicht das Scrollen innerhalb des Containers */
 }
 
-/* Stil der Nachrichten */
 .chat-history .dm-message,
 .chat-history .user-message {
-    background: rgba(0, 0, 0, 0.5); /* Halbtransparenter Hintergrund für Nachrichten */
-    color: #fff; /* Weiße Schrift */
-    padding: 10px; /* Polsterung für bessere Lesbarkeit */
-    border-radius: 4px; /* Abgerundete Ecken für Nachrichtenblasen */
-    max-width: 80%; /* Maximale Breite der Nachrichten */
-    margin: 10px auto; /* Zentriert die Nachrichten */
+    margin-bottom: 10px;
 }
 
-/* Weiterer Stil für die Seite */
-#userInput, #submitBtn {
+.chat-history .dm-message::before {
+    content: 'DM: ';
+    font-weight: bold;
+}
+
+.chat-history .user-message::before {
+    content: 'Spieler: ';
+    font-weight: bold;
+}
+
+.weapon {
+    width: 150px; /* Setzt eine feste Breite für alle Waffen */
+    height: auto; /* Behält das Seitenverhältnis bei */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.weapon:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5); /* Fügt einen Schatteneffekt hinzu */
+}
+
+#weapon-armory {
+    display: flex; /* Aktiviert Flexbox */
+    justify-content: center; /* Zentriert die Items horizontal */
+    align-items: center; /* Zentriert die Items vertikal */
+    flex-wrap: wrap; /* Erlaubt Zeilenumbrüche, falls nicht genug Platz vorhanden ist */
+    gap: 20px; /* Fügt einen Abstand zwischen den Items hinzu */
+}
+
+#location-choices {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.location {
     border: 1px solid #ccc;
-    background-color: #2a2a2d; /* Dunkler Hintergrund für Input und Button */
-    color: #fff; /* Weiße Schrift für Sichtbarkeit */
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-#submitBtn {
-    background-color: #4a4ae6; /* Lebendige Farbe für den Absende-Button */
-    border-color: #4a4ae6; /* Passende Grenzfarbe */
+.location:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
 }
 
-#submitBtn:hover {
-    background-color: #5656e9; /* Helle Farbe für Hover-Effekt */
-    border-color: #5656e9; /* Passende Grenzfarbe für Hover */
+.description {
+    display: none;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.location:hover .description {
+    display: block;
+}
+
+#dice-container button {
+    background-color: #4CAF50; /* Grüne Farbe */
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#dice-container button:hover {
+    background-color: #45a049;
+}
+
+#dice-result {
+    font-size: 24px;
+    margin-top: 20px;
+    color: #333;
 }
