@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Diese Funktion wird ausgeführt, wenn das Dokument geladen ist
+    // Diese Funktion wird ausgeführt, wenn das Dokument geladen hat
     addMessageToHistory("Hello new player!", "dm");
 
     document.getElementById('userInput').addEventListener("keyup", function(event) {
@@ -13,12 +13,6 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault();
         checkInput();
     });
-
-    document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById('magicBook').addEventListener('click', function() {
-            document.getElementById('dialogueBox').classList.remove('hidden');
-        })
-    })
 });
 
 var stage = 0; // Eine Variable, um das aktuelle Stadium der Konversation zu verfolgen
@@ -58,4 +52,3 @@ function addMessageToHistory(message, sender) {
 
     chatHistory.scrollTop = chatHistory.scrollHeight;
 }
-
